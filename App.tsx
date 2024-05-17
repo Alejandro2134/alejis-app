@@ -6,7 +6,7 @@ const App = () => {
   return (
     <SlideAnimation
       currentMonth={<Button title="Hello, world!" onPress={() => {}} />}
-      previousMonth={<Button title="Helloss" onPress={() => {}} />}
+      previousMonth={<Button title="Manco" onPress={() => {}} />}
     />
   );
 };
