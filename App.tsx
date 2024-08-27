@@ -1,14 +1,8 @@
 import React from 'react';
-import SlideAnimation from './src/components/animations/SlideAnimation/SlideAnimation';
-import {Button} from 'react-native';
+import Calendar from './src/components/organisms/Calendar/Calendar';
 
 const App = () => {
-  return (
-    <SlideAnimation
-      currentMonth={<Button title="Hello, world!" onPress={() => {}} />}
-      previousMonth={<Button title="Manco" onPress={() => {}} />}
-    />
-  );
+  return <Calendar />;
 };
 
 export default App;

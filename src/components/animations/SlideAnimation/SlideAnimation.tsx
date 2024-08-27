@@ -2,9 +2,9 @@ import React, {ReactNode, useEffect, useRef, useState} from 'react';
 import {Animated, StyleSheet, View, LayoutChangeEvent} from 'react-native';
 
 type Props = {
-  previousMonth: ReactNode;
-  nextMonth: ReactNode;
-  currentMonth: ReactNode;
+  previousComponent: ReactNode;
+  nextComponent: ReactNode;
+  currentComponent: ReactNode;
   activateAnimationToTheRight: boolean;
   activateAnimationToTheLeft: boolean;
   animationDuration: number;
@@ -17,41 +17,43 @@ type Layout = {
 };
 
 const SlideAnimation: React.FC<Props> = ({
-  currentMonth,
-  previousMonth,
-  nextMonth,
+  currentComponent,
+  previousComponent,
+  nextComponent,
   activateAnimationToTheRight,
   activateAnimationToTheLeft,
   animationDuration,
   deactivateAnimation,
 }: Props) => {
-  const previousMonthXPosition = useRef(new Animated.Value(0)).current;
-  const currentMonthXPosition = useRef(new Animated.Value(0)).current;
-  const nextMonthXPosition = useRef(new Animated.Value(0)).current;
+  const previousComponentXPosition = useRef(new Animated.Value(0)).current;
+  const currentComponentXPosition = useRef(new Animated.Value(0)).current;
+  const nextComponentXPosition = useRef(new Animated.Value(0)).current;
   const [layout, setLayout] = useState<Layout>({width: 0, height: 0});
 
   const startAnimation = (isForNextMonth: boolean) => {
-    const translateMonth = isForNextMonth
-      ? nextMonthXPosition
-      : previousMonthXPosition;
-    const translateMonthToValue = isForNextMonth ? -layout.width : layout.width;
+    const translateComponent = isForNextMonth
+      ? nextComponentXPosition
+      : previousComponentXPosition;
+    const translateComponentToValue = isForNextMonth
+      ? -layout.width
+      : layout.width;
 
     Animated.parallel([
-      Animated.timing(translateMonth, {
-        toValue: translateMonthToValue,
+      Animated.timing(translateComponent, {
+        toValue: translateComponentToValue,
         duration: animationDuration,
         useNativeDriver: true,
       }),
-      Animated.timing(currentMonthXPosition, {
-        toValue: translateMonthToValue,
+      Animated.timing(currentComponentXPosition, {
+        toValue: translateComponentToValue,
         duration: animationDuration,
         useNativeDriver: true,
       }),
     ]).start(() => {
       deactivateAnimation();
-      previousMonthXPosition.setValue(0);
-      currentMonthXPosition.setValue(0);
-      nextMonthXPosition.setValue(0);
+      previousComponentXPosition.setValue(0);
+      currentComponentXPosition.setValue(0);
+      nextComponentXPosition.setValue(0);
     });
   };
 
@@ -76,26 +78,26 @@ const SlideAnimation: React.FC<Props> = ({
         <>
           <Animated.View
             style={{
-              transform: [{translateX: previousMonthXPosition}],
+              transform: [{translateX: previousComponentXPosition}],
               right: layout.width,
               ...styles.months,
             }}>
-            {previousMonth}
+            {previousComponent}
           </Animated.View>
           <Animated.View
             style={{
-              transform: [{translateX: currentMonthXPosition}],
+              transform: [{translateX: currentComponentXPosition}],
               ...styles.months,
             }}>
-            {currentMonth}
+            {currentComponent}
           </Animated.View>
           <Animated.View
             style={{
-              transform: [{translateX: nextMonthXPosition}],
+              transform: [{translateX: nextComponentXPosition}],
               left: layout.width,
               ...styles.months,
             }}>
-            {nextMonth}
+            {nextComponent}
           </Animated.View>
         </>
       )}
