@@ -57,8 +57,8 @@ const Calendar = () => {
       />
 
       <SlideAnimation
-        activateAnimationToTheLeft={activateNextMonth}
-        activateAnimationToTheRight={activatePreviousMonth}
+        activateAnimationToTheLeft={activatePreviousMonth}
+        activateAnimationToTheRight={activateNextMonth}
         animationDuration={700}
         currentComponent={
           <DaysPerMonth monthDays={buildDaysForSpecificMonth(date)} />
