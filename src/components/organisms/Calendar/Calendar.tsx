@@ -1,14 +1,12 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import Slider from '../../molecules/Slider/Slider';
 import DaysPerMonth from '../../molecules/DaysPerMonth/DaysPerMonth';
-import {View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {
   buildDaysForSpecificMonth,
   getCurrentDate,
   getNextMonthFromActualDate,
   getPreviousMonthFromActualDate,
-  getDateMonthName,
-  getDateYearNumber,
 } from '../../../helpers/date_and_time';
 import SlideAnimation from '../../animations/SlideAnimation/SlideAnimation';
 
@@ -23,13 +21,13 @@ const Calendar = () => {
   const [activateNextMonth, setActivateNextMonth] = useState(false);
   const [activatePreviousMonth, setActivatePreviousMonth] = useState(false);
 
-  const nextMonth = () => {
+  const nextMonth = useCallback(() => {
     setActivateNextMonth(true);
-  };
+  }, []);
 
-  const previousMonth = () => {
+  const previousMonth = useCallback(() => {
     setActivatePreviousMonth(true);
-  };
+  }, []);
 
   const recalculateMonths = () => {
     if (activateNextMonth) {
@@ -50,11 +48,7 @@ const Calendar = () => {
 
   return (
     <View>
-      <Slider
-        sliderText={`${getDateMonthName(date)} ${getDateYearNumber(date)}`}
-        nextMonth={nextMonth}
-        previousMonth={previousMonth}
-      />
+      <Slider nextMonth={nextMonth} previousMonth={previousMonth} />
 
       <SlideAnimation
         activateAnimationToTheLeft={activatePreviousMonth}
@@ -72,9 +66,16 @@ const Calendar = () => {
             monthDays={buildDaysForSpecificMonth(previousMonthDate)}
           />
         }
+        componentContainerAdditionalStyles={styles.sliderAnimation}
       />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  sliderAnimation: {
+    top: 30,
+  },
+});
 
 export default Calendar;
