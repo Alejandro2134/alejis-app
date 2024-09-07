@@ -1,5 +1,5 @@
 import React, {ReactNode, useEffect, useRef, useState} from 'react';
-import {Animated, StyleSheet, View, LayoutChangeEvent} from 'react-native';
+import {Animated, View, LayoutChangeEvent, StyleSheet} from 'react-native';
 
 type Props = {
   previousComponent: ReactNode;
@@ -9,6 +9,7 @@ type Props = {
   activateAnimationToTheLeft: boolean;
   animationDuration: number;
   deactivateAnimation: () => void;
+  componentContainerAdditionalStyles: object;
 };
 
 type Layout = {
@@ -24,6 +25,7 @@ const SlideAnimation: React.FC<Props> = ({
   activateAnimationToTheLeft,
   animationDuration,
   deactivateAnimation,
+  componentContainerAdditionalStyles,
 }: Props) => {
   const previousComponentXPosition = useRef(new Animated.Value(0)).current;
   const currentComponentXPosition = useRef(new Animated.Value(0)).current;
@@ -80,14 +82,16 @@ const SlideAnimation: React.FC<Props> = ({
             style={{
               transform: [{translateX: previousComponentXPosition}],
               right: layout.width,
-              ...styles.months,
+              ...styles.componentContainer,
+              ...componentContainerAdditionalStyles,
             }}>
             {previousComponent}
           </Animated.View>
           <Animated.View
             style={{
               transform: [{translateX: currentComponentXPosition}],
-              ...styles.months,
+              ...styles.componentContainer,
+              ...componentContainerAdditionalStyles,
             }}>
             {currentComponent}
           </Animated.View>
@@ -95,7 +99,8 @@ const SlideAnimation: React.FC<Props> = ({
             style={{
               transform: [{translateX: nextComponentXPosition}],
               left: layout.width,
-              ...styles.months,
+              ...styles.componentContainer,
+              ...componentContainerAdditionalStyles,
             }}>
             {nextComponent}
           </Animated.View>
@@ -106,7 +111,7 @@ const SlideAnimation: React.FC<Props> = ({
 };
 
 const styles = StyleSheet.create({
-  months: {
+  componentContainer: {
     position: 'absolute',
     width: '100%',
   },
