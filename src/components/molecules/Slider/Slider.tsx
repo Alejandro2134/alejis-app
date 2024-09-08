@@ -18,7 +18,7 @@ interface Props {
 }
 
 const TextStyles = {
-  color: 'orange',
+  color: '#f9f9f9',
   fontSize: 20,
 };
 

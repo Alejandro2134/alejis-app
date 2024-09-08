@@ -47,7 +47,7 @@ const Calendar = () => {
   };
 
   return (
-    <View>
+    <View style={styles.calendarContainer}>
       <Slider nextMonth={nextMonth} previousMonth={previousMonth} />
 
       <SlideAnimation
@@ -75,6 +75,17 @@ const Calendar = () => {
 const styles = StyleSheet.create({
   sliderAnimation: {
     top: 30,
+  },
+  calendarContainer: {
+    flex: 0.5,
+    borderWidth: 3,
+    borderColor: '#37464f',
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
+    borderRadius: 16,
+    backgroundColor: '#131f24',
   },
 });
 

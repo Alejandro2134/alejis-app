@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   listElement: {
-    color: '#afafaf',
+    color: '#52656d',
     fontSize: 17,
   },
   headerContainer: {
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headerElement: {
-    color: '#afafaf',
+    color: '#52656d',
     fontSize: 20,
   },
 });
